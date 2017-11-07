@@ -1,5 +1,10 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.Publisher;
+import utils.Subscriber;
+
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -12,10 +17,12 @@ package logika;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Alena Buchalcevova
  *@version    z kurzu 4IT101 pro školní rok 2014/2015
  */
-public class HerniPlan {
+public class HerniPlan implements Publisher {
     
     private Prostor aktualniProstor;
     private Prostor viteznyProstor;
+    
+    private List<Subscriber> subscriberList = new ArrayList<>();
     
      /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -31,11 +38,11 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
-        Prostor domecek = new Prostor("domeček","domeček, ve kterém bydlí Karkulka");
-        Prostor chaloupka = new Prostor("chaloupka", "chaloupka, ve které bydlí babička Karkulky");
-        Prostor jeskyne = new Prostor("jeskyně","stará plesnivá jeskyně");
-        Prostor les = new Prostor("les","les s jahodami, malinami a pramenem vody");
-        Prostor hlubokyLes = new Prostor("hluboký_les","temný les, ve kterém lze potkat vlka");
+        Prostor domecek = new Prostor("domeček","domeček, ve kterém bydlí Karkulka", 11, 2);
+        Prostor chaloupka = new Prostor("chaloupka", "chaloupka, ve které bydlí babička Karkulky", 20, 30);
+        Prostor jeskyne = new Prostor("jeskyně","stará plesnivá jeskyně", 30, 40);
+        Prostor les = new Prostor("les","les s jahodami, malinami a pramenem vody", 50, 20);
+        Prostor hlubokyLes = new Prostor("hluboký_les","temný les, ve kterém lze potkat vlka", 10, 60);
         
         // přiřazují se průchody mezi prostory (sousedící prostory)
         domecek.setVychod(les);
@@ -70,6 +77,7 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
        aktualniProstor = prostor;
+       publish();
     }
     /**
      *  Metoda vrací odkaz na vítězný prostor.
@@ -79,6 +87,21 @@ public class HerniPlan {
     
     public Prostor getViteznyProstor() {
         return viteznyProstor;
+    }
+
+    @Override
+    public void subscribe(Subscriber subscriber) {
+        subscriberList.add(subscriber);
+    }
+
+    @Override
+    public void off(Subscriber subscriber) {
+        subscriberList.remove(subscriber);
+    }
+
+    @Override
+    public void publish() {
+        subscriberList.forEach(Subscriber::update);
     }
 
 }

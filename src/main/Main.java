@@ -6,6 +6,7 @@
 package main;
 
 import java.util.Arrays;
+import ui.Map;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,10 +38,15 @@ import uiText.TextoveRozhrani;
  * @author filj03
  */
 public class Main extends Application {
+    
+    private Map map;
 
     @Override
     public void start(Stage primaryStage) {
         IHra hra = new Hra();
+        
+        map = new Map(hra);
+        
         TextoveRozhrani ui = new TextoveRozhrani(hra);
         
         Button btn = new Button();
@@ -79,19 +85,10 @@ public class Main extends Application {
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
         
-        FlowPane imagePane = new FlowPane();
-        ImageView image = new ImageView(
-                new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"),
-                250,
-                156,
-                false,
-                false
-        ));
         
-        imagePane.getChildren().add(image);
         
         borderPane.setBottom(bottomPanel);
-        borderPane.setLeft(image);
+        borderPane.setLeft(map);
        
         Scene scene = new Scene(borderPane, 700, 500);
 
