@@ -5,15 +5,22 @@
  */
 package main;
 
+import java.util.Arrays;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -44,6 +51,7 @@ public class Main extends Application {
         centerText.setEditable(false);
         borderPane.setCenter(centerText);
         
+        
         Label enterCommandLabel = new Label();
         enterCommandLabel.setText("Zadej příkaz");
         enterCommandLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
@@ -71,19 +79,40 @@ public class Main extends Application {
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
         
-        borderPane.setBottom(bottomPanel);
-       
+        FlowPane imagePane = new FlowPane();
+        ImageView image = new ImageView(
+                new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"),
+                250,
+                156,
+                false,
+                false
+        ));
         
-        btn.setText("Začni adventuru.");
-
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-
-        Scene scene = new Scene(borderPane, 500, 500);
+        imagePane.getChildren().add(image);
+        
+        borderPane.setBottom(bottomPanel);
+        borderPane.setLeft(image);
+       
+        Scene scene = new Scene(borderPane, 700, 500);
 
         primaryStage.setTitle("Červená karkulka");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        enterCommandTextField.requestFocus();
+        
+        borderPane.setOnKeyPressed(e -> {
+            printAll("sdf", "sdfs", "dfds");
+            if (e.getCode().equals(KeyCode.ESCAPE)) {
+                primaryStage.close();
+            }
+        });
+    }
+    
+    public static void printAll(String... strings) {
+        Arrays
+            .stream(strings)
+            .forEach(System.out::println);
     }
 
     /**
