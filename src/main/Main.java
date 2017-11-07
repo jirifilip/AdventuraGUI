@@ -31,6 +31,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logika.Hra;
 import logika.IHra;
+import ui.MenuPole;
 import uiText.TextoveRozhrani;
 
 /**
@@ -40,12 +41,14 @@ import uiText.TextoveRozhrani;
 public class Main extends Application {
     
     private Map map;
+    private MenuPole menu;
 
     @Override
     public void start(Stage primaryStage) {
         IHra hra = new Hra();
         
         map = new Map(hra);
+        menu = new MenuPole();
         
         TextoveRozhrani ui = new TextoveRozhrani(hra);
         
@@ -89,7 +92,9 @@ public class Main extends Application {
         
         borderPane.setBottom(bottomPanel);
         borderPane.setLeft(map);
-       
+        borderPane.setTop(menu);
+        
+        
         Scene scene = new Scene(borderPane, 700, 500);
 
         primaryStage.setTitle("Červená karkulka");
