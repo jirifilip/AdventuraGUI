@@ -103,20 +103,8 @@ public class Main extends Application {
         
         enterCommandTextField.requestFocus();
         
-        borderPane.setOnKeyPressed(e -> {
-            printAll("sdf", "sdfs", "dfds");
-            if (e.getCode().equals(KeyCode.ESCAPE)) {
-                primaryStage.close();
-            }
-        });
     }
     
-    public static void printAll(String... strings) {
-        Arrays
-            .stream(strings)
-            .forEach(System.out::println);
-    }
-
     /**
      * @param args the command line arguments
      */
