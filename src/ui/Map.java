@@ -53,5 +53,13 @@ public class Map extends AnchorPane implements Subscriber {
         this.setTopAnchor(dot, hra.getHerniPlan().getAktualniProstor().getyPosition());
         this.setLeftAnchor(dot, hra.getHerniPlan().getAktualniProstor().getyPosition());
     }
+
+    @Override
+    public void newGame(IHra hra) {
+        hra.getHerniPlan().off(this);
+        this.hra = hra;
+        this.hra.getHerniPlan().subscribe(this);
+        update();
+    }
     
 }

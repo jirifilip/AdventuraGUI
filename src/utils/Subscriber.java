@@ -5,6 +5,8 @@
  */
 package utils;
 
+import logika.IHra;
+
 /**
  *
  * @author filj03
@@ -12,5 +14,7 @@ package utils;
 public interface Subscriber {
     
     void update();
+    
+    void newGame(IHra hra);
     
 }

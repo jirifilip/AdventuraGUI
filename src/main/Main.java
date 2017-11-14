@@ -17,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -31,34 +33,45 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logika.Hra;
 import logika.IHra;
-import ui.MenuPole;
+import ui.MenuField;
 import uiText.TextoveRozhrani;
 
 /**
- *
+ * @todo Dva observery
  * @author filj03
  */
 public class Main extends Application {
     
     private Map map;
-    private MenuPole menu;
+    private MenuField menu;
+    private IHra hra;
+    private TextArea centerText;
+    private Stage primaryStage;
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) {
-        IHra hra = new Hra();
+        hra = new Hra();
+        
+        this.primaryStage = primaryStage;
         
         map = new Map(hra);
-        menu = new MenuPole();
+        menu = new MenuField(this);
         
         TextoveRozhrani ui = new TextoveRozhrani(hra);
         
         Button btn = new Button();
         BorderPane borderPane = new BorderPane();
         
-        TextArea centerText = new TextArea();
+        centerText = new TextArea();
         centerText.setText(hra.vratUvitani());
         centerText.setEditable(false);
         borderPane.setCenter(centerText);
+        
+        
         
         
         Label enterCommandLabel = new Label();
@@ -124,6 +137,16 @@ public class Main extends Application {
             }
         }
 
+    }
+
+    public void newGame() {
+        hra = new Hra();
+        
+        centerText.setText(hra.vratUvitani());
+        
+        // pro všechny observery
+        
+        map.newGame(hra);
     }
 
 }
