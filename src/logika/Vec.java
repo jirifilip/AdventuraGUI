@@ -13,6 +13,7 @@ public class Vec
 //== Datové atributy (statické i instancí)======================================
     private String jmeno;
     private boolean prenositelna;
+    private String imageUrl;
 
 //##############################################################################
 //== Konstruktory a tovární metody =============================================
@@ -21,10 +22,15 @@ public class Vec
      *
      */
     public Vec (String jmeno, boolean prenositelna) {
-		this.jmeno = jmeno;
-		this.prenositelna = prenositelna;
-	}
+        this.jmeno = jmeno;
+        this.prenositelna = prenositelna;
+    }
 
+    public Vec (String jmeno, boolean prenositelna, String imageUrl) {
+        this.imageUrl = imageUrl;
+        this.jmeno = jmeno;
+        this.prenositelna = prenositelna;
+    }
 
 
 //== Nesoukromé metody (instancí i třídy) ===============================================

@@ -13,13 +13,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import logika.IHra;
 import main.Main;
+import utils.NewGameSubscriber;
 import utils.Subscriber;
 
 /**
  *
  * @author filj03
  */
-public class Map extends AnchorPane implements Subscriber {
+public class Map extends AnchorPane implements NewGameSubscriber {
 
     private IHra hra;
     private Circle dot;

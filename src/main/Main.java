@@ -27,12 +27,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logika.Hra;
 import logika.IHra;
+import ui.Inventory;
 import ui.MenuField;
 import uiText.TextoveRozhrani;
 
@@ -97,6 +99,9 @@ public class Main extends Application {
             centerText.setScrollTop(Double.MAX_VALUE);
         });
         
+        
+        Inventory inventory = new Inventory();
+        
         FlowPane bottomPanel = new FlowPane();
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
@@ -106,6 +111,7 @@ public class Main extends Application {
         borderPane.setBottom(bottomPanel);
         borderPane.setLeft(map);
         borderPane.setTop(menu);
+        borderPane.setRight(inventory);
         
         
         Scene scene = new Scene(borderPane, 700, 500);
