@@ -36,6 +36,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logika.Hra;
 import logika.IHra;
+import ui.GameTextArea;
 import ui.Inventory;
 import ui.MenuField;
 import ui.NextRoom;
@@ -50,7 +51,7 @@ public class Main extends Application {
     private Map map;
     private MenuField menu;
     private IHra hra;
-    private TextArea centerText;
+    private GameTextArea centerText;
     private Stage primaryStage;
 
     public Stage getPrimaryStage() {
@@ -71,9 +72,10 @@ public class Main extends Application {
         Button btn = new Button();
         BorderPane borderPane = new BorderPane();
         
-        centerText = new TextArea();
+        centerText = new GameTextArea(hra);
         centerText.setText(hra.vratUvitani());
         centerText.setEditable(false);
+        
         borderPane.setCenter(centerText);
         
         
@@ -117,6 +119,8 @@ public class Main extends Application {
         
         FlowPane bottomPanel = new FlowPane();
         NextRoom nextRoomGroup = new NextRoom(hra.getHerniPlan());
+        
+        nextRoomGroup.subscribe(centerText);
         
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField, nextRoomGroup);
