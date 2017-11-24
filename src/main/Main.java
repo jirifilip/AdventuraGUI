@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,6 +22,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,6 +38,7 @@ import logika.Hra;
 import logika.IHra;
 import ui.Inventory;
 import ui.MenuField;
+import ui.NextRoom;
 import uiText.TextoveRozhrani;
 
 /**
@@ -99,22 +102,32 @@ public class Main extends Application {
             centerText.setScrollTop(Double.MAX_VALUE);
         });
         
+        Accordion rightAccordion = new Accordion();
         
-        Inventory inventory = new Inventory();
+        
+        
+        
+        Inventory inventory = new Inventory(hra.getBackpack());
+        hra.getBackpack().subscribe(inventory);
+        
+        
+        TitledPane inventoryTitledPane = new TitledPane("Inventář", inventory);
+        
+        rightAccordion.getPanes().addAll(inventoryTitledPane);
         
         FlowPane bottomPanel = new FlowPane();
+        NextRoom nextRoomGroup = new NextRoom(hra.getHerniPlan());
+        
         bottomPanel.setAlignment(Pos.CENTER);
-        bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
-        
-        
+        bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField, nextRoomGroup);
         
         borderPane.setBottom(bottomPanel);
         borderPane.setLeft(map);
         borderPane.setTop(menu);
-        borderPane.setRight(inventory);
+        borderPane.setRight(rightAccordion);
         
         
-        Scene scene = new Scene(borderPane, 700, 500);
+        Scene scene = new Scene(borderPane, 900, 500);
 
         primaryStage.setTitle("Červená karkulka");
         primaryStage.setScene(scene);

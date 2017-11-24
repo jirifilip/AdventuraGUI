@@ -5,12 +5,17 @@
  */
 package ui;
 
+import java.io.InputStream;
 import java.util.Arrays;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import logika.Batoh;
 import logika.IHra;
 import logika.Vec;
 import main.Main;
@@ -24,56 +29,45 @@ public class Inventory extends FlowPane implements Subscriber {
 
     private final double ITEM_PREF_WIDTH = 50;
     private final double ITEM_PREF_HEIGHT = 50;
+    private Batoh backpack;
     
-    public Inventory() {
+    public Inventory(Batoh backpack) {
+        this.backpack = backpack;
         init();
     }
     
-    public void addAllItems(Vec... items) {
-        Arrays.stream(items).forEach(this::addItem);
+    protected void addItem(Vec item) {
+        
+        ImageView imageView = convertItemToImageView(item);
+        
+        imageView.setOnMouseClicked(this::onItemClick);
+        
+        this.getChildren().add(imageView);
     }
     
-    public void addItem(Vec item) {
+    protected ImageView convertItemToImageView(Vec item) {
+        InputStream ImageStream = Main.class.getResourceAsStream(item.getImageUrl());
+        Image image = new Image(ImageStream, ITEM_PREF_WIDTH, ITEM_PREF_HEIGHT, false, false);
+        ImageView imageView = new ImageView(image);
         
-        
-        inventoryImageView.getChil
+        return imageView;
     }
     
-    private void addImage(Image image) {
-        
+    protected void onItemClick(MouseEvent event) {
+        System.out.println(event.getTarget());
     }
-
-    private void init() {
+    
+    protected void init() {
         setPadding(new Insets(5, 5, 5, 5));
         setVgap(5);
         setHgap(5);
         setPrefWidth(250);
         
-        ImageView imageView = new ImageView(
-                new Image(Main.class.getResourceAsStream("/zdroje/maliny.jpg"),
-                    50,
-                    50,
-                    false,
-                    false
-                ));
-        this.getChildren().add(imageView);
 
-        
-        
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        backpack.getItems().forEach(this::addItem);
     }
-
-    @Override
-    public void newGame(IHra hra) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
-    
-    
 }

@@ -109,5 +109,9 @@ public class Hra implements IHra {
         return herniPlan;
      }
     
+     
+     public Batoh getBackpack() {
+         return batoh;
+     }
 }
 

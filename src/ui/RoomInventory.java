@@ -3,16 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package ui;
 
-import logika.IHra;
+import logika.Batoh;
 
 /**
  *
- * @author filj03
+ * @author Jirka_
  */
-public interface Subscriber {
+public class RoomInventory extends Inventory {
     
-    void update();
+    public RoomInventory(Batoh backpack) {
+        super(backpack);
+    }
     
 }

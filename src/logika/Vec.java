@@ -36,11 +36,17 @@ public class Vec
 //== Nesoukromé metody (instancí i třídy) ===============================================
 //== Soukromé metody (instancí i třídy) ===========================================
     public String getJmeno () {
-		return jmeno;
-	}
-	public boolean jePrenositelna() {
-		return prenositelna;
-	}
+        return jmeno;
+    }
+    public boolean jePrenositelna() {
+        return prenositelna;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+        
+        
 
 }
 

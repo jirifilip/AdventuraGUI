@@ -56,8 +56,8 @@ public class HerniPlan implements Publisher {
                 
         aktualniProstor = domecek;  // hra začíná v domečku  
         viteznyProstor = chaloupka ;
-        les.vlozVec(new Vec("maliny", true));
-        les.vlozVec(new Vec("strom", false));  
+        les.vlozVec(new Vec("maliny", true, "/zdroje/maliny.jpg"));
+        les.vlozVec(new Vec("strom", false, "/zdroje/strom.jpg"));  
     }
     
     /**

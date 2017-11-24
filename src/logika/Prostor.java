@@ -243,4 +243,11 @@ public class Prostor {
     public void setyPosition(double yPosition) {
         this.yPosition = yPosition;
     }
+
+    @Override
+    public String toString() {
+        return nazev;
+    }
+    
+    
 }
