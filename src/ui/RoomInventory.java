@@ -6,6 +6,7 @@
 package ui;
 
 import logika.Batoh;
+import logika.HerniPlan;
 
 /**
  *
@@ -13,8 +14,19 @@ import logika.Batoh;
  */
 public class RoomInventory extends Inventory {
     
-    public RoomInventory(Batoh backpack) {
-        super(backpack);
+    private HerniPlan gameMap;
+
+    public RoomInventory(Batoh backpack, HerniPlan gamePlan) {
+        super(backpack, gamePlan);
     }
+    
+    @Override
+    public void update() {
+        gameMap.getAktualniProstor().getItems().forEach(this::addItem);
+    }
+    
+    
+    
+    
     
 }

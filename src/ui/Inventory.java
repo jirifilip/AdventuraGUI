@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import logika.Batoh;
+import logika.HerniPlan;
 import logika.IHra;
 import logika.Vec;
 import main.Main;
@@ -30,31 +31,28 @@ public class Inventory extends FlowPane implements Subscriber {
     private final double ITEM_PREF_WIDTH = 50;
     private final double ITEM_PREF_HEIGHT = 50;
     private Batoh backpack;
+    private HerniPlan gamePlan;
     
-    public Inventory(Batoh backpack) {
+    public Inventory(Batoh backpack, HerniPlan gamePlan) {
         this.backpack = backpack;
+        this.gamePlan = gamePlan;
         init();
     }
     
     protected void addItem(Vec item) {
         
-        ImageView imageView = convertItemToImageView(item);
+        ItemDecorator imageView = new ItemDecorator(item);
         
         imageView.setOnMouseClicked(this::onItemClick);
         
         this.getChildren().add(imageView);
     }
     
-    protected ImageView convertItemToImageView(Vec item) {
-        InputStream ImageStream = Main.class.getResourceAsStream(item.getImageUrl());
-        Image image = new Image(ImageStream, ITEM_PREF_WIDTH, ITEM_PREF_HEIGHT, false, false);
-        ImageView imageView = new ImageView(image);
-        
-        return imageView;
-    }
-    
     protected void onItemClick(MouseEvent event) {
-        System.out.println(event.getTarget());
+        ItemDecorator itemD = (ItemDecorator) event.getTarget();
+        this.getChildren().remove(itemD);
+        
+        gamePlan.getAktualniProstor().vlozVec(itemD.getItem());
     }
     
     protected void init() {

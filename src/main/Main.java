@@ -40,6 +40,7 @@ import ui.GameTextArea;
 import ui.Inventory;
 import ui.MenuField;
 import ui.NextRoom;
+import ui.RoomInventory;
 import uiText.TextoveRozhrani;
 
 /**
@@ -109,18 +110,21 @@ public class Main extends Application {
         
         
         
-        Inventory inventory = new Inventory(hra.getBackpack());
+        Inventory inventory = new Inventory(hra.getBackpack(), hra.getHerniPlan());
+        RoomInventory roomInventory = new RoomInventory(hra.getBackpack(), hra.getHerniPlan());
         hra.getBackpack().subscribe(inventory);
         
         
         TitledPane inventoryTitledPane = new TitledPane("Inventář", inventory);
+        TitledPane roomInventoryTitledPane = new TitledPane("Věci v prostoru", roomInventory);
         
-        rightAccordion.getPanes().addAll(inventoryTitledPane);
+        rightAccordion.getPanes().addAll(inventoryTitledPane, roomInventoryTitledPane);
         
         FlowPane bottomPanel = new FlowPane();
         NextRoom nextRoomGroup = new NextRoom(hra.getHerniPlan());
         
         nextRoomGroup.subscribe(centerText);
+        nextRoomGroup.subscribe(roomInventory);
         
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField, nextRoomGroup);

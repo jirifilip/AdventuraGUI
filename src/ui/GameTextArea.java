@@ -24,7 +24,7 @@ public class GameTextArea extends TextArea implements Subscriber {
     @Override
     public void update() {
         String text = game.getHerniPlan().getAktualniProstor().dlouhyPopis();
-        this.appendText(text);
+        this.appendText("\n\n" + text);
     }
     
 }

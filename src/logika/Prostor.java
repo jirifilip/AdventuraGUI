@@ -215,6 +215,10 @@ public class Prostor {
         }
         return nalezenaVec;
     }
+    
+    public Collection<Vec> getItems() {
+        return seznamVeci.values();
+    }
 
     /**
      * @return the xPosition
