@@ -1,5 +1,10 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.Publisher;
+import utils.Subscriber;
+
 /**
  *  Třída Hra - třída představující logiku adventury.
  * 
@@ -12,11 +17,13 @@ package logika;
  *@version    z kurzu 4IT101 pro školní rok 2014/2015
  */
 
-public class Hra implements IHra {
+public class Hra implements IHra, Publisher {
     private SeznamPrikazu platnePrikazy;    // obsahuje seznam přípustných příkazů
     private HerniPlan herniPlan;
     private boolean konecHry = false;
     private Batoh batoh ;
+    
+    private List<Subscriber> subscriberList = new ArrayList<>(); 
 
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
@@ -85,6 +92,9 @@ public class Hra implements IHra {
         else {
             textKVypsani="Nevím co tím myslíš, tento příkaz neznám? ";
         }
+        
+        publish();
+        
         return textKVypsani;
     }
     
@@ -113,5 +123,20 @@ public class Hra implements IHra {
      public Batoh getBackpack() {
          return batoh;
      }
+
+    @Override
+    public void subscribe(Subscriber subscriber) {
+        subscriberList.add(subscriber);
+    }
+
+    @Override
+    public void off(Subscriber subscriber) {
+        subscriberList.remove(subscriber);
+    }
+
+    @Override
+    public void publish() {
+        subscriberList.forEach(Subscriber::update);
+    }
 }
 

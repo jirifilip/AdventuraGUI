@@ -6,6 +6,8 @@
 package ui;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logika.Vec;
@@ -31,11 +33,19 @@ public class ItemDecorator extends ImageView {
         Image image = new Image(ImageStream, ITEM_PREF_WIDTH, ITEM_PREF_HEIGHT, false, false);
         this.setImage(image);
     }
-
+    
     public Vec getItem() {
         return item;
     }
     
-    
+    public static Collection<ItemDecorator> fromItems(Collection<Vec> items) {
+        Collection<ItemDecorator> transformed = new ArrayList<>();
+        
+        for (Vec item : items) {
+            transformed.add(new ItemDecorator(item));
+        }
+        
+        return transformed;
+    }
     
 }

@@ -110,12 +110,14 @@ public class Main extends Application {
         
         
         
-        Inventory inventory = new Inventory(hra.getBackpack(), hra.getHerniPlan());
-        RoomInventory roomInventory = new RoomInventory(hra.getBackpack(), hra.getHerniPlan());
-        hra.getBackpack().subscribe(inventory);
+        Inventory inventory = new Inventory(hra);
+        RoomInventory roomInventory = new RoomInventory(hra);
         
+        Hra game = (Hra) hra;
+        game.subscribe(inventory);
+        game.subscribe(roomInventory);
         
-        TitledPane inventoryTitledPane = new TitledPane("Inventář", inventory);
+        TitledPane inventoryTitledPane = new TitledPane("Batoh", inventory);
         TitledPane roomInventoryTitledPane = new TitledPane("Věci v prostoru", roomInventory);
         
         rightAccordion.getPanes().addAll(inventoryTitledPane, roomInventoryTitledPane);

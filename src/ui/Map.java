@@ -35,18 +35,19 @@ public class Map extends AnchorPane implements NewGameSubscriber {
     
     private void init() {
         ImageView image = new ImageView(
-                new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"),
+                new Image(Main.class.getResourceAsStream("/zdroje/mapa.png"),
                 250,
-                156,
+                250,
                 false,
                 false
         ));
         
         
-        dot = new Circle(10, Paint.valueOf("red"));
+        dot = new Circle(5, Paint.valueOf("red"));
         
         this.getChildren().addAll(image, dot);
         
+        update();
     }
     
     @Override
