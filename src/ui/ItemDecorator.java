@@ -8,6 +8,7 @@ package ui;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import logika.Vec;
@@ -17,7 +18,7 @@ import main.Main;
  *
  * @author Jirka_
  */
-public class ItemDecorator extends ImageView {
+public class ItemDecorator extends Button {
     
     private Vec item;
     private final double ITEM_PREF_WIDTH = 50;
@@ -31,7 +32,8 @@ public class ItemDecorator extends ImageView {
     private void init() {
         InputStream ImageStream = Main.class.getResourceAsStream(item.getImageUrl());
         Image image = new Image(ImageStream, ITEM_PREF_WIDTH, ITEM_PREF_HEIGHT, false, false);
-        this.setImage(image);
+        ImageView imageView = new ImageView(image);
+        this.setGraphic(imageView);
     }
     
     public Vec getItem() {

@@ -6,6 +6,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import logika.HerniPlan;
+import logika.IHra;
 import logika.Prostor;
 import utils.Publisher;
 import utils.Subscriber;
@@ -27,6 +29,8 @@ public class NextRoom extends FlowPane implements Publisher {
     
     private ComboBox roomsComboBox = new ComboBox();
     private Button goButton = new Button("Jdi do místnosti");
+    private List<Button> buttonList = new ArrayList<>();
+    
     private HerniPlan gameMap;
     
     private List<Subscriber> subscriberList = new ArrayList<>();
@@ -46,14 +50,33 @@ public class NextRoom extends FlowPane implements Publisher {
         publish();
     }
     
+    private void onRoomClicked(Prostor nextRoom) {
+        
+        gameMap.setAktualniProstor(nextRoom);
+        
+        init();
+        
+        publish();
+    }
+    
+    public void newGame(IHra game) {
+        gameMap = game.getHerniPlan();
+        
+        init();
+    }
+    
     private void init() {
-        ObservableList<Prostor> roomList = FXCollections.observableArrayList(gameMap.getAktualniProstor().getVychody());
-        roomsComboBox.setItems(roomList);
-        roomsComboBox.getSelectionModel().selectFirst();
+        Collection<Prostor> roomList = gameMap.getAktualniProstor().getVychody();
         
-        goButton.setOnMouseClicked(this::goToNextRoomClicked);
+        this.getChildren().removeAll(buttonList);
         
-        this.getChildren().addAll(roomsComboBox, goButton);
+        roomList.forEach(room -> {
+            Button btn = new Button(room.getNazev());
+            btn.setOnAction(e -> onRoomClicked(room));
+            buttonList.add(btn);
+            
+            this.getChildren().add(btn);
+        });
     }
 
     @Override

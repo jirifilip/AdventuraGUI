@@ -12,6 +12,7 @@ import logika.HerniPlan;
 import logika.IHra;
 import logika.PrikazSeber;
 import logika.Vec;
+import main.Main;
 import utils.CommandBuilder;
 
 /**
@@ -20,8 +21,8 @@ import utils.CommandBuilder;
  */
 public class RoomInventory extends Inventory {
 
-    public RoomInventory(IHra game) {
-        super(game);
+    public RoomInventory(IHra game, Main main) {
+        super(game, main);
     }
 
     @Override
@@ -40,7 +41,15 @@ public class RoomInventory extends Inventory {
         
         String command = CommandBuilder.compose(PICK_UP_COMMAND, item.getJmeno());
         
-        game.zpracujPrikaz(command);
+        String commandString = game.zpracujPrikaz(command);
+        
+        main.getCenterText().appendCommandResult(commandString);
+    }
+    
+    @Override
+    public void newGame(IHra hra) {
+        game = hra;
+        update();
     }
     
     

@@ -36,7 +36,7 @@ public class MenuField extends MenuBar {
         MenuItem itemNewGame = new MenuItem("Nová hra" /*, new ImageView(Main.class.getResourceAsStream("zddroje/ikona.png")*/);
         MenuItem itemEndGame = new MenuItem("Konec");
         
-        Menu menuHelp = new Menu("help");
+        Menu menuHelp = new Menu("Help");
         MenuItem itemAbout = new MenuItem("O programu");
         MenuItem itemHelp = new MenuItem("Nápověda");
         

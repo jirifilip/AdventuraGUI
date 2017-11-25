@@ -42,7 +42,6 @@ public class Map extends AnchorPane implements NewGameSubscriber {
                 false
         ));
         
-        
         dot = new Circle(5, Paint.valueOf("red"));
         
         this.getChildren().addAll(image, dot);
@@ -52,8 +51,8 @@ public class Map extends AnchorPane implements NewGameSubscriber {
     
     @Override
     public void update() {
-        this.setTopAnchor(dot, hra.getHerniPlan().getAktualniProstor().getyPosition());
-        this.setLeftAnchor(dot, hra.getHerniPlan().getAktualniProstor().getyPosition());
+        dot.setCenterX(hra.getHerniPlan().getAktualniProstor().getxPosition());
+        dot.setCenterY(hra.getHerniPlan().getAktualniProstor().getyPosition());
     }
 
     @Override

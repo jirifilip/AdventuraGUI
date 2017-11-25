@@ -12,6 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -54,11 +56,16 @@ public class Main extends Application {
     private IHra hra;
     private GameTextArea centerText;
     private Stage primaryStage;
+    private Inventory inventory;
+    private RoomInventory roomInventory;
+    private NextRoom nextRoomGroup;
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
+    
+    
+    
     @Override
     public void start(Stage primaryStage) {
         hra = new Hra();
@@ -74,16 +81,15 @@ public class Main extends Application {
         BorderPane borderPane = new BorderPane();
         
         centerText = new GameTextArea(hra);
-        centerText.setText(hra.vratUvitani());
-        centerText.setEditable(false);
         
-        borderPane.setCenter(centerText);
+        
         
         
         
         
         Label enterCommandLabel = new Label();
-        enterCommandLabel.setText("Zadej příkaz");
+        
+        enterCommandLabel.setText("Zadej příkaz\t");
         enterCommandLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         
         TextField enterCommandTextField = new TextField("Sem zadej příkaz");
@@ -110,8 +116,8 @@ public class Main extends Application {
         
         
         
-        Inventory inventory = new Inventory(hra);
-        RoomInventory roomInventory = new RoomInventory(hra);
+        inventory = new Inventory(hra, this);
+        roomInventory = new RoomInventory(hra, this);
         
         Hra game = (Hra) hra;
         game.subscribe(inventory);
@@ -123,18 +129,30 @@ public class Main extends Application {
         rightAccordion.getPanes().addAll(inventoryTitledPane, roomInventoryTitledPane);
         
         FlowPane bottomPanel = new FlowPane();
-        NextRoom nextRoomGroup = new NextRoom(hra.getHerniPlan());
+        bottomPanel.setPadding(new Insets(10, 10, 10, 10));
+        nextRoomGroup = new NextRoom(hra.getHerniPlan());
         
         nextRoomGroup.subscribe(centerText);
         nextRoomGroup.subscribe(roomInventory);
         
-        bottomPanel.setAlignment(Pos.CENTER);
-        bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField, nextRoomGroup);
         
+        VBox roomGroup = new VBox(nextRoomGroup);
+        roomGroup.setPadding(new Insets(5, 5, 5, 5));
+        VBox leftVBox = new VBox();
+        leftVBox.setPadding(new Insets(10, 10, 10, 10));
+        leftVBox.setMaxWidth(270);
+        leftVBox.getChildren().addAll(map, roomGroup);
+        
+        bottomPanel.setAlignment(Pos.CENTER);
+        bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
+        
+        borderPane.setCenter(centerText);
         borderPane.setBottom(bottomPanel);
-        borderPane.setLeft(map);
+        borderPane.setLeft(leftVBox);
         borderPane.setTop(menu);
         borderPane.setRight(rightAccordion);
+        
+        borderPane.setStyle("-fx-background-color: #89af7c;");
         
         
         Scene scene = new Scene(borderPane, 900, 500);
@@ -145,6 +163,10 @@ public class Main extends Application {
         
         enterCommandTextField.requestFocus();
         
+    }
+
+    public GameTextArea getCenterText() {
+        return centerText;
     }
     
     /**
@@ -176,6 +198,9 @@ public class Main extends Application {
         // pro všechny observery
         
         map.newGame(hra);
+        inventory.newGame(hra);
+        roomInventory.newGame(hra);
+        nextRoomGroup.newGame(hra);
     }
 
 }

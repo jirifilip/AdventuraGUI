@@ -22,13 +22,14 @@ import logika.IHra;
 import logika.Vec;
 import main.Main;
 import utils.CommandBuilder;
+import utils.NewGameSubscriber;
 import utils.Subscriber;
 
 /**
  *
  * @author Jirka_
  */
-public class Inventory extends FlowPane implements Subscriber {
+public class Inventory extends FlowPane implements NewGameSubscriber {
 
     private final double ITEM_PREF_WIDTH = 50;
     private final double ITEM_PREF_HEIGHT = 50;
@@ -37,9 +38,11 @@ public class Inventory extends FlowPane implements Subscriber {
     protected final String PICK_UP_COMMAND = "seber";
     
     protected IHra game;
+    protected Main main;
     
-    public Inventory(IHra game) {
+    public Inventory(IHra game, Main main) {
         this.game = game;
+        this.main = main;
         init();
     }
     
@@ -53,13 +56,14 @@ public class Inventory extends FlowPane implements Subscriber {
     }
     
     protected void onItemClick(MouseEvent event) {
-        System.out.println("blabla");
         ItemDecorator itemD = (ItemDecorator) event.getTarget();
         this.getChildren().remove(itemD);
         
         String command = CommandBuilder.compose(DROP_COMMAND, itemD.getItem().getJmeno());
         
-        game.zpracujPrikaz(command);
+        String commandString = game.zpracujPrikaz(command);
+        
+        main.getCenterText().appendCommandResult(commandString);
     }
     
     protected void init() {
@@ -78,5 +82,11 @@ public class Inventory extends FlowPane implements Subscriber {
         
         this.getChildren().setAll(itemDecs);
         this.getChildren().forEach(n -> n.setOnMouseClicked(this::onItemClick));
+    }
+
+    @Override
+    public void newGame(IHra hra) {
+        this.game = hra;
+        update();
     }
 }
