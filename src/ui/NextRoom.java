@@ -22,8 +22,15 @@ import utils.Publisher;
 import utils.Subscriber;
 
 /**
+ *  Třída NextRoom - reprezentace GUI pro výběr, do jaké místnosti se hráč
+ *  chce dál vydat
+ * 
+ *  Slouží jako Publisher pro ostatní komponenty.
+ * 
  *
- * @author Jirka_
+ *@author     Jiří Filip
+ *@version    4.0
+ *@created    listopad 2017
  */
 public class NextRoom extends FlowPane implements Publisher {
     
@@ -35,19 +42,15 @@ public class NextRoom extends FlowPane implements Publisher {
     
     private List<Subscriber> subscriberList = new ArrayList<>();
     
+    /**
+    * Konstruktor NextRoom
+    *
+    *@param gameMap
+    *@return
+    */
     public NextRoom(HerniPlan gameMap) {
         this.gameMap = gameMap;
         init();
-    }
-    
-    private void goToNextRoomClicked(MouseEvent event) {
-        Prostor nextRoom = (Prostor) roomsComboBox.getValue();
-        gameMap.setAktualniProstor(nextRoom);
-        
-        roomsComboBox.getItems().setAll(gameMap.getAktualniProstor().getVychody());
-        roomsComboBox.getSelectionModel().selectFirst();
-        
-        publish();
     }
     
     private void onRoomClicked(Prostor nextRoom) {

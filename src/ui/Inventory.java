@@ -26,8 +26,16 @@ import utils.NewGameSubscriber;
 import utils.Subscriber;
 
 /**
+ *  Třída Inventory - představuje grafické zobrazení batohu
+ * 
+ * 
+ *  Funguje jako inventář v řadě RPG her.
+ *  Sbíráním předmětů z okolního prostoru se zaplňuje inventář a uvolňovat ho
+ *  můžeme jejich vyhazováním.
  *
- * @author Jirka_
+ *@author     Jiří Filip
+ *@version    4.0
+ *@created    listopad 2017
  */
 public class Inventory extends FlowPane implements NewGameSubscriber {
 
@@ -40,12 +48,44 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
     protected IHra game;
     protected Main main;
     
+    /**
+    * Konstruktor Inventáře
+    *
+    *@param game hra, pro kterou vytváříme inventář
+    *@param main hlavní okno aplikace, abychom mohli aktivovat
+    * novou hru
+    *@return
+    */
     public Inventory(IHra game, Main main) {
         this.game = game;
         this.main = main;
         init();
     }
     
+    /**
+    * Inicializační metoda.
+    * 
+    * Zde slouží pro nastavení vzhledu komponenty.
+    *
+    */
+    protected void init() {
+        setPadding(new Insets(5, 5, 5, 5));
+        setVgap(5);
+        setHgap(5);
+        setPrefWidth(250);
+    }
+    
+    /**
+    * Metoda pro vložení jedné Věci do komponenty a její zobrazení.
+    * 
+    * Z věci vytvoříme ItemDecorator, který poskytuje patřičnou funkcionalitu
+    * a vložíme ho do komponenty. Rovněž mu nastavíme event
+    * handler při kliknutí.
+    * 
+    *
+    *@param item věc, kterou chceme do komponenty vložit
+    *@return
+    */
     protected void addItem(Vec item) {
         
         ItemDecorator imageView = new ItemDecorator(item);
@@ -55,6 +95,19 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
         this.getChildren().add(imageView);
     }
     
+    /**
+    * Metoda, která slouží jako event handler pro kliknutí myši na
+    * jednotlivou věc v inventáři.
+    *
+    * Při kliknutí na věc v inventáři ji chceme položit, a tak na instanci
+    * hry zavoláme příkaz "poloz" s parametry podle jména věci.
+    * 
+    * K vytvoření textu příkazu se používá jednoduchá třída CommandBuilder a 
+    * její statická metoda compose.
+    * 
+    *@param event události kliknutí
+    *@return
+    */
     protected void onItemClick(MouseEvent event) {
         ItemDecorator itemD = (ItemDecorator) event.getTarget();
         this.getChildren().remove(itemD);
@@ -66,15 +119,17 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
         main.getCenterText().appendCommandResult(commandString);
     }
     
-    protected void init() {
-        setPadding(new Insets(5, 5, 5, 5));
-        setVgap(5);
-        setHgap(5);
-        setPrefWidth(250);
-        
-
-    }
-
+    
+    /**
+    * Metoda, která slouží k aktualizaci stavu po signálu od Publishera.
+    *
+    * Když nám Publisher zašle takovýto příkaz, znamená to, že se obsah
+    * inventáře změnil, a tak si z instance hry vezmeme znovu obsah batohu
+    * a vykreslíme ho.
+    * 
+    *@param
+    *@return
+    */
     @Override
     public void update() {
         Collection<ItemDecorator> itemDecs = ItemDecorator.fromItems(
@@ -84,6 +139,15 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
         this.getChildren().forEach(n -> n.setOnMouseClicked(this::onItemClick));
     }
 
+    /**
+    * Metoda, kterou nám Publisher předá signál, že začala nová hra.
+    *
+    * Když nám Publisher zašle příkaz nové hry společně s instancí nové hry,
+    * jen přiřadíme novou instanci hry naší původní a aktualizujeme stav.
+    * 
+    *@param hra instance nové hry
+    *@return
+    */
     @Override
     public void newGame(IHra hra) {
         this.game = hra;

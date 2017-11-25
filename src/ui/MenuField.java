@@ -18,18 +18,38 @@ import logika.IHra;
 import main.Main;
 
 /**
+ *  Třída MenuField - GUI prvek pro navigační lištu.
+ * 
+ * 
+ * Umožňuje začít hru znovu, ukončit nebo spustit nápovědu.
+ * 
  *
- * @author filj03
+ *@author     Jiří Filip
+ *@version    4.0
+ *@created    listopad 2017
  */
 public class MenuField extends MenuBar {
     
     private Main main;
     
+    /**
+    * Konstruktor MenuField
+    *
+    *@param main hlavní okno aplikace
+    *@return
+    */
     public MenuField(Main main) {
         this.main = main;
         init();
     }
     
+    /**
+    * Inicializační  metoda
+    *
+    * Vytvoříme jednotlivé položky menu a přiřadíme jim event handlery.
+    * 
+    * @return
+    */
     private void init() {
         Menu menuFile = new Menu("Adventura");
         
