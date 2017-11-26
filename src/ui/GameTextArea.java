@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import javafx.scene.control.TextArea;
@@ -43,8 +38,6 @@ public class GameTextArea extends TextArea implements Subscriber {
     * její popis.
     * 
     * 
-    *@param
-    *@return
     */
     @Override
     public void update() {
@@ -56,7 +49,6 @@ public class GameTextArea extends TextArea implements Subscriber {
     * Metoda pro vkládání výsledku příkazu do textové oblasti.
     *
     *@param result výsledek příkazu, který chceme vypsat
-    *@return
     */
     public void appendCommandResult(String result) {
         this.appendText("\n\n" + result);

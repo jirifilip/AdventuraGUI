@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import java.io.InputStream;
@@ -54,7 +49,7 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
     *@param game hra, pro kterou vytváříme inventář
     *@param main hlavní okno aplikace, abychom mohli aktivovat
     * novou hru
-    *@return
+    * 
     */
     public Inventory(IHra game, Main main) {
         this.game = game;
@@ -84,7 +79,6 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
     * 
     *
     *@param item věc, kterou chceme do komponenty vložit
-    *@return
     */
     protected void addItem(Vec item) {
         
@@ -106,7 +100,6 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
     * její statická metoda compose.
     * 
     *@param event události kliknutí
-    *@return
     */
     protected void onItemClick(MouseEvent event) {
         ItemDecorator itemD = (ItemDecorator) event.getTarget();
@@ -127,8 +120,6 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
     * inventáře změnil, a tak si z instance hry vezmeme znovu obsah batohu
     * a vykreslíme ho.
     * 
-    *@param
-    *@return
     */
     @Override
     public void update() {
@@ -146,7 +137,6 @@ public class Inventory extends FlowPane implements NewGameSubscriber {
     * jen přiřadíme novou instanci hry naší původní a aktualizujeme stav.
     * 
     *@param hra instance nové hry
-    *@return
     */
     @Override
     public void newGame(IHra hra) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import javafx.scene.Scene;
@@ -36,7 +31,6 @@ public class MenuField extends MenuBar {
     * Konstruktor MenuField
     *
     *@param main hlavní okno aplikace
-    *@return
     */
     public MenuField(Main main) {
         this.main = main;
@@ -48,7 +42,6 @@ public class MenuField extends MenuBar {
     *
     * Vytvoříme jednotlivé položky menu a přiřadíme jim event handlery.
     * 
-    * @return
     */
     private void init() {
         Menu menuFile = new Menu("Adventura");

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import java.util.ArrayList;
@@ -46,13 +41,19 @@ public class NextRoom extends FlowPane implements Publisher {
     * Konstruktor NextRoom
     *
     *@param gameMap
-    *@return
     */
     public NextRoom(HerniPlan gameMap) {
         this.gameMap = gameMap;
         init();
     }
     
+    /**
+    * Event handler pro kliknutí na název místnosti
+    * 
+    * Zajišťuje, aby se změnila místnost a stav objektu se aktualizoval
+    *
+    *@param nextRoom další prostor hry, do kterého se po kliknutí máme přesunout
+    */
     private void onRoomClicked(Prostor nextRoom) {
         
         gameMap.setAktualniProstor(nextRoom);
@@ -62,12 +63,23 @@ public class NextRoom extends FlowPane implements Publisher {
         publish();
     }
     
+    /**
+    * Metoda, kterou nám hlavní okno předá signál, že začala nová hras
+    *
+    *@param game nová hra, která se má spustit
+    */
     public void newGame(IHra game) {
         gameMap = game.getHerniPlan();
         
         init();
     }
     
+    /**
+    * Inicializační metoda - vymaže předchozí tlačítka a na základě východů
+    * z aktuálního prostoru vytvoří nový seznam tlačítek a přiřadí jim 
+    * event handler při kliknutí.
+    *
+    */
     private void init() {
         Collection<Prostor> roomList = gameMap.getAktualniProstor().getVychody();
         
@@ -82,17 +94,34 @@ public class NextRoom extends FlowPane implements Publisher {
         });
     }
 
-    @Override
+    /**
+    * Metoda, prostřednictvím níž předáme třídě nového odběratele.
+    *
+    *@param subscriber nový odběratel, kterému budeme posílat signály
+    * 
+    *@Override
+    */
     public void subscribe(Subscriber subscriber) {
         subscriberList.add(subscriber);
     }
 
-    @Override
+    /**
+    * Metoda, prostřednictvím níž odebereme třídě existujícího odběratele.
+    *
+    *@param subscriber odběratel, kterého chceme odebrat
+    * 
+    *@Override
+    */
     public void off(Subscriber subscriber) {
         subscriberList.remove(subscriber);
     }
 
-    @Override
+    /**
+    * Signalizujeme tak odběratelům, že byly provedeny nějaké
+    * změny stavu.
+    *
+    *@Override
+    */
     public void publish() {
         subscriberList.forEach(Subscriber::update);
     }

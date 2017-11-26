@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import javafx.scene.image.Image;
@@ -38,7 +33,6 @@ public class Map extends AnchorPane implements NewGameSubscriber {
     * Konstruktor poté zavolá inicializační metodu
     *
     *@param hra instance hry
-    *@return
     */
     public Map(IHra hra) {
         this.hra = hra;
@@ -54,8 +48,6 @@ public class Map extends AnchorPane implements NewGameSubscriber {
     * Vytváří obrázek mapy a bod, který bude ukazovat, v jakém Prostoru se
     * právě hráč nachází
     *
-    *@param
-    *@return
     */
     private void init() {
         ImageView image = new ImageView(

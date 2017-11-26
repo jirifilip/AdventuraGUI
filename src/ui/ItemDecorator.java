@@ -28,7 +28,6 @@ public class ItemDecorator extends Button {
     * Konstruktor ItemDekorátoru
     *
     *@param item věc, kterou budeme dekorovat
-    *@return
     */
     public ItemDecorator(Vec item) {
         this.item = item;
@@ -42,7 +41,6 @@ public class ItemDecorator extends Button {
     * Image a vložíme ho do ImageView. Ten pak vložíme do naší komponenty.
     *
     *@param item věc, kterou budeme dekorovat
-    *@return
     */
     private void init() {
         InputStream ImageStream = Main.class.getResourceAsStream(item.getImageUrl());

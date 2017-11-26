@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import java.util.Arrays;
@@ -46,49 +41,163 @@ import ui.RoomInventory;
 import uiText.TextoveRozhrani;
 
 /**
- * @todo Dva observery
- * @author filj03
+ *  Třída Main - obsahuje metodu main pro spuštění celého programu.
+ *  Umožňuje spuštění pouze jako textové verze pomocí parametru
+ *  příkazové řádky "text". Rovněž slouží jako hlavní okno grafického
+ *  rozhraní, ve kterém vytváříme všechny další komponenty a kontejnery
+ *  pro grafické prvky.
+ *
+ *@author     Jiří Filip
+ *@version    4.0
+ *@created    listopad 2017
  */
 public class Main extends Application {
     
     private Map map;
     private MenuField menu;
+    
     private IHra hra;
+    
     private GameTextArea centerText;
     private Stage primaryStage;
+    
     private Inventory inventory;
     private RoomInventory roomInventory;
+    
     private NextRoom nextRoomGroup;
+    private VBox leftVBox;
+    
+    private BorderPane mainBorderPane;
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
+    private Accordion rightAccordion;
+    
+    private FlowPane bottomPanel;
     
     
     
-    @Override
+    /**
+     * Methoda slouží pro spuštění grafické verze programu.
+     * Vytvoříme v ní instance důležitých grafických komponent a prvků 
+     * a ty poté vsadíme do hlavního kontejneru a vytvoříme scénu.
+     * 
+     * @param primaryStage 
+     * @Override
+     */
     public void start(Stage primaryStage) {
         hra = new Hra();
         
         this.primaryStage = primaryStage;
         
-        map = new Map(hra);
-        menu = new MenuField(this);
         
         TextoveRozhrani ui = new TextoveRozhrani(hra);
         
-        Button btn = new Button();
-        BorderPane borderPane = new BorderPane();
+             
+        createMenu();
         
+        createBottomPanel();
+        
+        createCenterText();
+        
+        createInventoryPanel();
+        
+        createNextRoomMenu();
+        
+        createLeftPanel();
+        
+        mainBorderPane = new BorderPane();
+        
+        mainBorderPane.setCenter(centerText);
+        mainBorderPane.setBottom(bottomPanel);
+        mainBorderPane.setLeft(leftVBox);
+        mainBorderPane.setTop(menu);
+        mainBorderPane.setRight(rightAccordion);
+        mainBorderPane.setStyle("-fx-background-color: #89af7c;");
+        
+        
+        Scene scene = new Scene(mainBorderPane, 900, 500);
+
+        primaryStage.setTitle("Červená karkulka");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        
+        
+        
+    }
+    
+    /**
+     * Metoda vytvoří menu
+     */
+    private void createMenu() {
+        map = new Map(hra);
+        menu = new MenuField(this);
+    }
+    
+    /**
+     * Metoda vytvoří levý panel s mapou
+     * a menu pro vybrání dalšího prostoru.
+     */
+    private void createLeftPanel() {
+        VBox roomGroup = new VBox(nextRoomGroup);
+        roomGroup.setPadding(new Insets(5, 5, 5, 5));
+        leftVBox = new VBox();
+        leftVBox.setPadding(new Insets(10, 10, 10, 10));
+        leftVBox.setMaxWidth(270);
+        leftVBox.getChildren().addAll(map, roomGroup); 
+    }
+    
+    /**
+     * Metoda vytvoří centrální textovou oblast hry
+     */
+    private void createCenterText() {
         centerText = new GameTextArea(hra);
         
+        centerText.textProperty().addListener(evt -> {
+            centerText.setScrollTop(Double.MAX_VALUE);
+        });
+    }
+    
+    /**
+     * Metoda vytvoří panel s inventářem a předměty v prostoru.
+     * 
+     * Poté je registruje jako subscribery instance hry. 
+     */
+    public void createInventoryPanel() {
+        inventory = new Inventory(hra, this);
+        roomInventory = new RoomInventory(hra, this);
         
+        Hra game = (Hra) hra;
+        game.subscribe(inventory);
+        game.subscribe(roomInventory);
         
+        rightAccordion = new Accordion();
         
+        TitledPane inventoryTitledPane = new TitledPane("Batoh", inventory);
+        TitledPane roomInventoryTitledPane = new TitledPane("Věci v prostoru", roomInventory);
         
+        rightAccordion.getPanes().addAll(inventoryTitledPane, roomInventoryTitledPane);
+    }
+    
+    /**
+     * Metoda vytvoří menu pro výběr další místnosti
+     * 
+     */
+    public void createNextRoomMenu() {
+        nextRoomGroup = new NextRoom(hra.getHerniPlan());
+        
+        nextRoomGroup.subscribe(centerText);
+        nextRoomGroup.subscribe(roomInventory);
+    }
+    
+    /**
+     * Metoda vytvoří dolní panel s polem pro zadávání příkazů
+     * a přiřadí jim event handlery pro kliknutí.
+     * 
+     */
+    private void createBottomPanel() {
+        bottomPanel = new FlowPane();
+        bottomPanel.setPadding(new Insets(10, 10, 10, 10));
         
         Label enterCommandLabel = new Label();
-        
         enterCommandLabel.setText("Zadej příkaz\t");
         enterCommandLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         
@@ -107,70 +216,38 @@ public class Main extends Application {
             }
         });
         
-        centerText.textProperty().addListener(evt -> {
-            centerText.setScrollTop(Double.MAX_VALUE);
-        });
-        
-        Accordion rightAccordion = new Accordion();
-        
-        
-        
-        
-        inventory = new Inventory(hra, this);
-        roomInventory = new RoomInventory(hra, this);
-        
-        Hra game = (Hra) hra;
-        game.subscribe(inventory);
-        game.subscribe(roomInventory);
-        
-        TitledPane inventoryTitledPane = new TitledPane("Batoh", inventory);
-        TitledPane roomInventoryTitledPane = new TitledPane("Věci v prostoru", roomInventory);
-        
-        rightAccordion.getPanes().addAll(inventoryTitledPane, roomInventoryTitledPane);
-        
-        FlowPane bottomPanel = new FlowPane();
-        bottomPanel.setPadding(new Insets(10, 10, 10, 10));
-        nextRoomGroup = new NextRoom(hra.getHerniPlan());
-        
-        nextRoomGroup.subscribe(centerText);
-        nextRoomGroup.subscribe(roomInventory);
-        
-        
-        VBox roomGroup = new VBox(nextRoomGroup);
-        roomGroup.setPadding(new Insets(5, 5, 5, 5));
-        VBox leftVBox = new VBox();
-        leftVBox.setPadding(new Insets(10, 10, 10, 10));
-        leftVBox.setMaxWidth(270);
-        leftVBox.getChildren().addAll(map, roomGroup);
+        enterCommandTextField.requestFocus();
         
         bottomPanel.setAlignment(Pos.CENTER);
         bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
-        
-        borderPane.setCenter(centerText);
-        borderPane.setBottom(bottomPanel);
-        borderPane.setLeft(leftVBox);
-        borderPane.setTop(menu);
-        borderPane.setRight(rightAccordion);
-        
-        borderPane.setStyle("-fx-background-color: #89af7c;");
-        
-        
-        Scene scene = new Scene(borderPane, 900, 500);
-
-        primaryStage.setTitle("Červená karkulka");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        
-        enterCommandTextField.requestFocus();
-        
     }
-
+    
+    
+    /**
+     * Getter pro centerText
+     * 
+     * @return centerText
+     */
     public GameTextArea getCenterText() {
         return centerText;
     }
     
     /**
-     * @param args the command line arguments
+     * Getter pro primaryStage
+     * 
+     * @return primaryStage
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+    
+    /**
+     * Main metoda pro start celého programu.
+     * Když zadáme při spouštění z příkazové řádky
+     * první argument "text", spustíme pouze textovou verzi.
+     * V opačném případě spouštíme verzi grafickou.
+     * 
+     * @param args argumenty příkazové řádky
      */
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -182,20 +259,20 @@ public class Main extends Application {
                 ui.hraj();
             } else {
                 launch(args);
-                
-//                System.out.println("Neplatný parametr");
-//                System.exit(1);
             }
         }
 
     }
 
+    /**
+     * Metoda signalizuje začátek nové hry všem observerům.
+     * 
+     * 
+     */
     public void newGame() {
         hra = new Hra();
         
         centerText.setText(hra.vratUvitani());
-        
-        // pro všechny observery
         
         map.newGame(hra);
         inventory.newGame(hra);

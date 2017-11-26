@@ -1,18 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import logika.IHra;
 
 /**
- *
- * @author filj03
+ *  Interface Subscriber - slouží pro odebírání změn stavu
+ *  u Publishera.
+ * 
+ * 
+ *@author     Jiří Filip
+ *@version    4.0
+ *@created    listopad 2017
  */
 public interface Subscriber {
     
+    
+    /**
+     * Metoda update - aktualizuje stav Subscribera.
+     * 
+     */
     void update();
     
 }
