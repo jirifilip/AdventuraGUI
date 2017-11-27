@@ -186,6 +186,8 @@ public class Main extends Application {
         
         nextRoomGroup.subscribe(centerText);
         nextRoomGroup.subscribe(roomInventory);
+        
+        hra.getHerniPlan().subscribe(nextRoomGroup);
     }
     
     /**

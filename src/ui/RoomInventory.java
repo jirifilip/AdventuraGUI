@@ -32,7 +32,6 @@ public class RoomInventory extends Inventory {
     *@param game hra, pro kterou vytváříme inventář
     *@param main hlavní okno aplikace, abychom mohli aktivovat
     * novou hru
-    *@return
     */
     public RoomInventory(IHra game, Main main) {
         super(game, main);

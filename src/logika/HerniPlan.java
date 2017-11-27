@@ -40,7 +40,7 @@ public class HerniPlan implements Publisher {
         // vytvářejí se jednotlivé prostory
         Prostor domecek = new Prostor("domeček","domeček, ve kterém bydlí Karkulka", 25, 25);
         Prostor chaloupka = new Prostor("chaloupka", "chaloupka, ve které bydlí babička Karkulky", 125, 25);
-        Prostor jeskyne = new Prostor("jeskyně", "stará plesnivá jeskyně", 190, 45);
+        Prostor jeskyne = new Prostor("jeskyně", "stará plesnivá jeskyně", 190, 85);
         Prostor les = new Prostor("les", "les s jahodami, malinami a pramenem vody", 40, 125);
         Prostor hlubokyLes = new Prostor("hluboký les", "temný les, ve kterém lze potkat vlka", 175, 190);
         
@@ -56,8 +56,10 @@ public class HerniPlan implements Publisher {
                 
         aktualniProstor = domecek;  // hra začíná v domečku  
         viteznyProstor = chaloupka ;
-        les.vlozVec(new Vec("maliny", true, "/zdroje/maliny.jpg"));
-        les.vlozVec(new Vec("strom", false, "/zdroje/strom.jpg"));  
+        les.vlozVec(new Vec("maliny", true, "/zdroje/maliny.png"));
+        les.vlozVec(new Vec("strom", false, "/zdroje/strom.png"));
+        chaloupka.vlozVec(new Vec("vetev", true, "/zdroje/vetev.png"));
+        hlubokyLes.vlozVec(new Vec("list", true, "/zdroje/list.png"));
     }
     
     /**
@@ -89,17 +91,29 @@ public class HerniPlan implements Publisher {
         return viteznyProstor;
     }
 
-    @Override
+    /**
+     *  Metoda pro odebírání Publishera
+     *
+     *@Override 
+     */
     public void subscribe(Subscriber subscriber) {
         subscriberList.add(subscriber);
     }
 
-    @Override
+    /**
+     *  Metoda pro zrušení odběru
+     *
+     *@Override 
+     */
     public void off(Subscriber subscriber) {
         subscriberList.remove(subscriber);
     }
 
-    @Override
+    /**
+     *  Metoda pro vyslání signálu, že proběhla aktualizace stavu.
+     *
+     *@Override 
+     */
     public void publish() {
         subscriberList.forEach(Subscriber::update);
     }

@@ -49,6 +49,13 @@ public interface IHra
      *  @return     odkaz na herní plán
      */
      public HerniPlan getHerniPlan();
+     
+     /**
+     *  Metoda vrátí odkaz na batoh, je využita hlavně v testech,
+     *  kde se jejím prostřednictvím získává batoh.
+     *  
+     *  @return     odkaz na herní plán
+     */
      public Batoh getBackpack();
     
     //== ZDĚDĚNÉ METODY ========================================================

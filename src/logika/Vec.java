@@ -42,6 +42,11 @@ public class Vec
         return prenositelna;
     }
 
+    /**
+     * Getter pro image url
+     * 
+     * @return imageUrl
+     */
     public String getImageUrl() {
         return imageUrl;
     }

@@ -249,7 +249,10 @@ public class Prostor {
         this.yPosition = yPosition;
     }
 
-    @Override
+    /**
+     * @return název místnosti
+     * @Override
+     */
     public String toString() {
         return nazev;
     }

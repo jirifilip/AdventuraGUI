@@ -27,7 +27,7 @@ import utils.Subscriber;
  *@version    4.0
  *@created    listopad 2017
  */
-public class NextRoom extends FlowPane implements Publisher {
+public class NextRoom extends FlowPane implements Publisher, Subscriber {
     
     private ComboBox roomsComboBox = new ComboBox();
     private Button goButton = new Button("Jdi do místnosti");
@@ -124,6 +124,15 @@ public class NextRoom extends FlowPane implements Publisher {
     */
     public void publish() {
         subscriberList.forEach(Subscriber::update);
+    }
+
+    /**
+    * Metoda pro aktualizaci stavu po obdržení signálu
+    *
+    *@Override
+    */
+    public void update() {
+        init();
     }
     
 }

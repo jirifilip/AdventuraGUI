@@ -71,17 +71,29 @@ public class Batoh implements Publisher {
         return nalezenaVec;
     }
 
-    @Override
+    /**
+     *  Metoda pro odebírání Publishera
+     *
+     *@Override 
+     */
     public void subscribe(Subscriber subscriber) {
         subscriberList.add(subscriber);
     }
 
-    @Override
+    /**
+     *  Metoda pro zrušení odběru
+     *
+     *@Override 
+     */
     public void off(Subscriber subscriber) {
         subscriberList.remove(subscriber);
     }
 
-    @Override
+    /**
+     *  Metoda pro vyslání signálu, že proběhla aktualizace stavu.
+     *
+     *@Override 
+     */
     public void publish() {
         subscriberList.forEach(Subscriber::update);
     }
