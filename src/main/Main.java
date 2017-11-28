@@ -218,10 +218,17 @@ public class Main extends Application {
             }
         });
         
+        Button backpackButton = new Button("Batoh");
+        backpackButton.setOnMouseClicked(event -> {
+            String cmd = hra.zpracujPrikaz("obsahBatohu");
+            centerText.appendCommandResult(cmd);
+        });
+        
         enterCommandTextField.requestFocus();
         
         bottomPanel.setAlignment(Pos.CENTER);
-        bottomPanel.getChildren().addAll(enterCommandLabel, enterCommandTextField);
+        bottomPanel.getChildren().addAll(enterCommandLabel,
+                enterCommandTextField, backpackButton);
     }
     
     
@@ -241,7 +248,8 @@ public class Main extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
+    }        
+
     
     /**
      * Main metoda pro start celého programu.

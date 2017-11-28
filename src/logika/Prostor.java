@@ -217,7 +217,6 @@ public class Prostor {
     }
     
     public Collection<Vec> getItems() {
-        System.out.println(seznamVeci.values());
         return seznamVeci.values();
     }
 

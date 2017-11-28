@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import logika.HerniPlan;
@@ -34,6 +35,8 @@ public class NextRoom extends FlowPane implements Publisher, Subscriber {
     private List<Button> buttonList = new ArrayList<>();
     
     private HerniPlan gameMap;
+    
+    private ListView roomListView;
     
     private List<Subscriber> subscriberList = new ArrayList<>();
     
@@ -83,6 +86,30 @@ public class NextRoom extends FlowPane implements Publisher, Subscriber {
     private void init() {
         Collection<Prostor> roomList = gameMap.getAktualniProstor().getVychody();
         
+//        this.getChildren().remove(roomListView);
+//        this.getChildren().remove(roomsComboBox);
+//        this.getChildren().remove(goButton);
+//        
+//        ObservableList<Prostor> roomObservableList = 
+//                FXCollections.observableArrayList(roomList);
+        
+//        roomListView = new ListView();
+//        roomListView.setEditable(false);
+//        roomListView.setItems(roomObservableList);
+//        roomListView.setMaxWidth(100);
+//        roomListView.setMaxHeight(100);
+//        
+//        
+//        roomsComboBox.setItems(roomObservableList);
+//        goButton.setOnAction(value -> {
+//            Prostor room = (Prostor) roomsComboBox
+//                    .getSelectionModel()
+//                    .getSelectedItem();
+//            
+//            onRoomClicked(room);
+//        });
+        
+        
         this.getChildren().removeAll(buttonList);
         
         roomList.forEach(room -> {
@@ -92,6 +119,8 @@ public class NextRoom extends FlowPane implements Publisher, Subscriber {
             
             this.getChildren().add(btn);
         });
+        
+//        this.getChildren().addAll(roomListView, roomsComboBox, goButton);
     }
 
     /**
