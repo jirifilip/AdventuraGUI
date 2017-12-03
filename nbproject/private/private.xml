@@ -2,33 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/Batoh.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/Prostor.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/utils/Publisher.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/utils/NewGameSubscriber.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/PrikazSeber.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/RoomInventory.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/uiText/TextoveRozhrani.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/utils/Subscriber.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/main/Start.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/HerniPlan.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/MenuField.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/main/Main.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/PrikazPoloz.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/NextRoom.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/ItemDecorator.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/Hra.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/SeznamPrikazu.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/PrikazObsahBatohu.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/Vec.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/PrikazJdi.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/utils/CommandBuilder.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/IPrikaz.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/Inventory.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/Map.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/logika/IHra.java</file>
-            <file>file:/C:/code/java/AdventuraGUI/src/ui/GameTextArea.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
